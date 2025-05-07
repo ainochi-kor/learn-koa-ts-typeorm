@@ -2,6 +2,9 @@ import Koa, { DefaultContext, DefaultState } from "koa";
 import Router from "koa-router";
 import { DataSource } from "typeorm";
 import { config } from "dotenv";
+import { PostEntity } from "./posts.entity";
+import { UserEntity } from "./users.entity";
+
 import "colors";
 
 config();
@@ -19,6 +22,7 @@ export const connectWithDB = async (
   const connection = new DataSource({
     type: "sqlite",
     database: "./koa.db",
+    entities: [UserEntity, PostEntity],
   });
 
   try {
