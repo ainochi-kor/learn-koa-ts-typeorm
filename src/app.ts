@@ -9,9 +9,29 @@ const router = new Router();
 
 router.get(
   "/",
-  async (ctx: ParameterizedContext<DefaultState, DefaultContext>) => {
+  async (ctx: ParameterizedContext<DefaultState, DefaultContext>, next) => {
+    await next();
     ctx.body = { msg: "Hello World!" };
     console.log("Request received at /".green);
+  }
+);
+
+router.get(
+  "/",
+  async (ctx: ParameterizedContext<DefaultState, DefaultContext>, next) => {
+    const startDate = new Date();
+    console.log("before body", ctx.body);
+    await next();
+    console.log("after body", ctx.body);
+    const ms = new Date().getTime() - startDate.getTime();
+    ctx.set("X-Response-Time", `${ms}ms`);
+  }
+);
+
+router.get(
+  "/",
+  async (ctx: ParameterizedContext<DefaultState, DefaultContext>, next) => {
+    ctx.body = "Hello World!";
   }
 );
 
