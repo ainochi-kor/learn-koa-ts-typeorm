@@ -4,6 +4,7 @@ import { DataSource } from "typeorm";
 import { config } from "dotenv";
 import { PostEntity } from "./posts.entity";
 import { UserEntity } from "./users.entity";
+import "reflect-metadata";
 
 import "colors";
 
